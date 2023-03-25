@@ -1,6 +1,4 @@
-interface QueryParamObjProp { 
-    [key: string]: string | number; 
-}
+import { QueryParamObjProp } from "../models";
 
 class Fetcher {
     options: RequestInit;
@@ -56,7 +54,8 @@ class Fetcher {
         return await this.#basicFetch(`/api.php${this.#generateQueryParams(params)}`)
     }
     async fetchCategories(): Promise<any> {
-        return await this.#basicFetch(`/api_category.php`)
+        const categoryInfo = await this.#basicFetch(`/api_category.php`)
+        return categoryInfo.trivia_categories
     }
     async fetchToken(): Promise<any> {
         const data = await this.#basicFetch(`/api_token.php${this.#generateQueryParams({"command": "request"})}`) 
