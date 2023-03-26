@@ -26,6 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
         let players: Player[] = []
         let addPlayerBtn: HTMLButtonElement = document.querySelector("#addPlayerBtn")
         addPlayerBtn.addEventListener("click", (e) => handleAddPlayer(e, players))
+        document.querySelector("#playerInput").addEventListener("input", () => clearWarnings)
+        document.querySelector("#playBtn").addEventListener("click", (e) => {
+            e.preventDefault()
+            if (players.length < 1) {
+                clearWarnings()
+                addWarning("You must add a player!")
+            }
+        })
     }
     buildPage()
 })
@@ -38,14 +46,16 @@ const handleAddPlayer = (e: MouseEvent, players: Player[]) => {
     e.preventDefault()
     let playerInput: HTMLInputElement = document.querySelector("#playerInput")
     if (playerInput.value.trim() === "") {
-        let warningLI = document.createElement("li")
-        warningLI.innerHTML = "name cant be blank"
-        document.querySelector('#warningList').appendChild(warningLI)
+        clearWarnings()
+        addWarning("Player names cannot be blank")
     } else if (players.some(player => player.name === playerInput.value.trim())) {
-        let warningLI = document.createElement("li")
-        warningLI.innerHTML = "cant use same name"
-        document.querySelector('#warningList').appendChild(warningLI)
+        clearWarnings()
+        addWarning("Players cannot have the same name")
+    } else if (players.length >= 4) {
+        clearWarnings()
+        addWarning("4 players maximum")
     } else {
+        console.log(players.length)
         players.push(new Player(playerInput.value.trim()))
         playerInput.value = ""
         let playersUL = document.querySelector("#playerList")
@@ -56,4 +66,12 @@ const handleAddPlayer = (e: MouseEvent, players: Player[]) => {
         })
     }
     console.log(players)
+}
+const clearWarnings = () => {
+    document.querySelector('#warningList').innerHTML = ""
+}
+const addWarning = (warning: string) => {
+    let warningLI = document.createElement("li")
+    warningLI.innerHTML = warning
+    document.querySelector('#warningList').appendChild(warningLI)
 }
