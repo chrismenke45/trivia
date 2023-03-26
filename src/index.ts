@@ -38,9 +38,13 @@ const handleAddPlayer = (e: MouseEvent, players: Player[]) => {
     e.preventDefault()
     let playerInput: HTMLInputElement = document.querySelector("#playerInput")
     if (playerInput.value.trim() === "") {
-        alert("name cant be blank")
+        let warningLI = document.createElement("li")
+        warningLI.innerHTML = "name cant be blank"
+        document.querySelector('#warningList').appendChild(warningLI)
     } else if (players.some(player => player.name === playerInput.value.trim())) {
-        alert("cant use same name")
+        let warningLI = document.createElement("li")
+        warningLI.innerHTML = "cant use same name"
+        document.querySelector('#warningList').appendChild(warningLI)
     } else {
         players.push(new Player(playerInput.value.trim()))
         playerInput.value = ""

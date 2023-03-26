@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trivia</title>
-  </head>
-  <body>
-    <h1 class="text-white bg-yellow-300 p-5">Trivia</h1>
-    <main>
-      <ul id="playerList" class="col-center">
-        <li class="text-red-500">You must add a player</li>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trivia</title>
+</head>
+
+<body>
+  <header class="bg-yellow-300 p-5">
+    <h1 class="text-indigo-900 text-lg font-mono">Trivia</h1>
+  </header>
+
+  <main class="col-center">
+    <h3>Players:</h3>
+    <ol id="playerList" class="flex flex-col items-start list-decimal w-24">
+    </ol>
+    <form class="col-center">
+      <label for="playerInput" hidden="true">Player Name:</label>
+      <input type="text" id="playerInput" placeholder="Player" class="theme-border w-4/6" maxlength="10" />
+      <button id="addPlayerBtn">Add Player</button>
+      <br />
+      <label for="category">Category:</label>
+      <select name="category" id="category" class="theme-border w-4/6">
+        <option value="0">All</option>
+      </select>
+      <button id="playBtn">Play</button>
+      <ul id="warningList" class="text-red-500 list-disc">
       </ul>
-      <form class="col-center">
-        <label for="playerInput" hidden="true">Player Name:</label>
-        <input type="text" id="playerInput" placeholder="Player"/>
-        <button id="addPlayerBtn">Add Player</button>
-        <br/>
-        <label for="category">Category:</label>
-        <select name="category" id="category">
-          <option value="0">All</option>
-        </select>
-        <button id="playBtn">Play</button>
-      </form>
-    </main>
-    <script src="./bundle.js"></script>
-  </body>
+      
+    </form>
+  </main>
+  <script src="./bundle.js"></script>
+</body>
+
 </html>
