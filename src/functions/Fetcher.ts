@@ -14,13 +14,6 @@ class Fetcher {
         }
         this.baseURL = "https://opentdb.com"
     }
-    // buildFormData(formInfoArray: string[][]): void {
-    //     let data = new FormData()
-    //     formInfoArray.forEach(formInfo => {
-    //         if (formInfo[1]) { data.append(formInfo[0], formInfo[1]) }
-    //     })
-    //     this.options.body = data
-    // }
     #generateQueryParams(values: QueryParamObjProp): string {
         if (values) {
             let queryStr = "?"

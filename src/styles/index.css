@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+button {
+    @apply border border-gray-300 rounded p-1 hover:bg-gray-200
+}
+form > * {
+    @apply m-1
+}
+.col-center {
+    @apply flex flex-col items-center
+}
+

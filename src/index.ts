@@ -3,6 +3,7 @@ import Fetcher from "./functions/Fetcher";
 import Player from "./functions/Player";
 import categoryOptions from "./components/categoryOptions";
 import { categoryProp } from "./models";
+import playersLIs from "./components/playersLIs";
 
 const main = async () => {
     const fetcher = new Fetcher()
@@ -18,25 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const buildPage = async () => {
         let fetcher = new Fetcher()
         const categories: categoryProp[] = await fetcher.fetchCategories()
-        const categoryElements: HTMLOptionElement[] = categoryOptions(categories)
-        categoryElements.forEach(element => {
+        const categoryOptionElements: HTMLOptionElement[] = categoryOptions(categories)
+        categoryOptionElements.forEach(element => {
             document.querySelector("select").appendChild(element)
         })
         let players: Player[] = []
         let addPlayerBtn: HTMLButtonElement = document.querySelector("#addPlayerBtn")
-        addPlayerBtn.addEventListener("click", (e) => {
-            e.preventDefault()
-            let playerInput: HTMLInputElement = document.querySelector("#playerInput")
-            if (playerInput.value.trim() === "") {
-                alert("name cant be blank")
-            } else if (players.some(player => player.name === playerInput.value.trim())) {
-                alert("cant use same name")
-            } else {
-                players.push(new Player(playerInput.value.trim()))
-                playerInput.value = ""
-            }
-            console.log(players)
-        })
+        addPlayerBtn.addEventListener("click", (e) => handleAddPlayer(e, players))
     }
     buildPage()
 })
@@ -44,3 +33,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 main();
+
+const handleAddPlayer = (e: MouseEvent, players: Player[]) => {
+    e.preventDefault()
+    let playerInput: HTMLInputElement = document.querySelector("#playerInput")
+    if (playerInput.value.trim() === "") {
+        alert("name cant be blank")
+    } else if (players.some(player => player.name === playerInput.value.trim())) {
+        alert("cant use same name")
+    } else {
+        players.push(new Player(playerInput.value.trim()))
+        playerInput.value = ""
+        let playersUL = document.querySelector("#playerList")
+        playersUL.innerHTML = ""
+        let playerLIElements: HTMLLIElement[] = playersLIs(players)
+        playerLIElements.forEach(element => {
+            playersUL.appendChild(element)
+        })
+    }
+    console.log(players)
+}

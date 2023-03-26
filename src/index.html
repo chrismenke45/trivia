@@ -9,14 +9,19 @@
   <body>
     <h1 class="text-white bg-yellow-300 p-5">Trivia</h1>
     <main>
-      <form>
-        <label for="playerInput">Player Name:</label>
-        <input type="text" id="playerInput"/>
+      <ul id="playerList" class="col-center">
+        <li class="text-red-500">You must add a player</li>
+      </ul>
+      <form class="col-center">
+        <label for="playerInput" hidden="true">Player Name:</label>
+        <input type="text" id="playerInput" placeholder="Player"/>
         <button id="addPlayerBtn">Add Player</button>
+        <br/>
         <label for="category">Category:</label>
         <select name="category" id="category">
           <option value="0">All</option>
         </select>
+        <button id="playBtn">Play</button>
       </form>
     </main>
     <script src="./bundle.js"></script>

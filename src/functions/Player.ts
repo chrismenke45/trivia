@@ -10,7 +10,7 @@ class Player {
         this.#attemptedCount = 0
     }
     get correctPercentage() {
-        return Math.round(this.#correctCount / this.#attemptedCount * 100)
+        return this.#attemptedCount ? Math.round(this.#correctCount / this.#attemptedCount * 100) : 0
     }
     get name() {
         return this.#name
