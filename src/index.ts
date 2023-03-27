@@ -26,14 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let players: Player[] = []
         let addPlayerBtn: HTMLButtonElement = document.querySelector("#addPlayerBtn")
         addPlayerBtn.addEventListener("click", (e) => handleAddPlayer(e, players))
-        document.querySelector("#playerInput").addEventListener("input", () => clearWarnings)
-        document.querySelector("#playBtn").addEventListener("click", (e) => {
-            e.preventDefault()
-            if (players.length < 1) {
-                clearWarnings()
-                addWarning("You must add a player!")
-            }
-        })
+        document.querySelector("#playerInput").addEventListener("input", clearWarnings)
+        document.querySelector("#playBtn").addEventListener("click", (e) => handleNoPlayers(e, players))
     }
     buildPage()
 })
@@ -74,4 +68,11 @@ const addWarning = (warning: string) => {
     let warningLI = document.createElement("li")
     warningLI.innerHTML = warning
     document.querySelector('#warningList').appendChild(warningLI)
+}
+const handleNoPlayers = (e: Event, players: Player[]) => {
+    e.preventDefault()
+    if (players.length < 1) {
+        clearWarnings()
+        addWarning("You must add a player!")
+    }
 }
