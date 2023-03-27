@@ -1,6 +1,5 @@
 import "./styles/index.css";
 import Fetcher from "./functions/Fetcher";
-import Player from "./functions/Player";
 import categoryOptions from "./components/categoryOptions";
 import { categoryProp } from "./models";
 import playersLIs from "./components/playersLIs";
@@ -23,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         categoryOptionElements.forEach(element => {
             document.querySelector("select").appendChild(element)
         })
-        let players: Player[] = []
+        let players: string[] = []
         let addPlayerBtn: HTMLButtonElement = document.querySelector("#addPlayerBtn")
         addPlayerBtn.addEventListener("click", (e) => handleAddPlayer(e, players))
         document.querySelector("#playerInput").addEventListener("input", clearWarnings)
@@ -36,13 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 main();
 
-const handleAddPlayer = (e: MouseEvent, players: Player[]) => {
+const handleAddPlayer = (e: MouseEvent, players: string[]) => {
     e.preventDefault()
     let playerInput: HTMLInputElement = document.querySelector("#playerInput")
     if (playerInput.value.trim() === "") {
         clearWarnings()
         addWarning("Player names cannot be blank")
-    } else if (players.some(player => player.name === playerInput.value.trim())) {
+    } else if (players.some(player => player === playerInput.value.trim())) {
         clearWarnings()
         addWarning("Players cannot have the same name")
     } else if (players.length >= 4) {
@@ -50,7 +49,7 @@ const handleAddPlayer = (e: MouseEvent, players: Player[]) => {
         addWarning("4 players maximum")
     } else {
         console.log(players.length)
-        players.push(new Player(playerInput.value.trim()))
+        players.push(playerInput.value.trim())
         playerInput.value = ""
         let playersUL = document.querySelector("#playerList")
         playersUL.innerHTML = ""
@@ -69,10 +68,14 @@ const addWarning = (warning: string) => {
     warningLI.innerHTML = warning
     document.querySelector('#warningList').appendChild(warningLI)
 }
-const handleNoPlayers = (e: Event, players: Player[]) => {
+const handleNoPlayers = (e: Event, players: string[]) => {
     e.preventDefault()
     if (players.length < 1) {
         clearWarnings()
         addWarning("You must add a player!")
+    } else {
+        window.location.replace(`game.html`);
+
     }
 }
+console.log("yee")

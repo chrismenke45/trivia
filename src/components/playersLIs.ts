@@ -1,9 +1,7 @@
-import Player from "../functions/Player"
-
-const playersLIs = (playerArray: Player[]):HTMLLIElement[] => {
+const playersLIs = (playerArray: string[]):HTMLLIElement[] => {
     return playerArray.map(player => {
         let li: HTMLLIElement= document.createElement("li")
-        li.innerText = player.name
+        li.innerText = player
         return li
     })
 }
