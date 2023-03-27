@@ -4,16 +4,6 @@ import categoryOptions from "./components/categoryOptions";
 import { categoryProp } from "./models";
 import playersLIs from "./components/playersLIs";
 
-const main = async () => {
-    const fetcher = new Fetcher()
-    const data1 = await fetcher.fetchToken()
-    console.log(data1)
-    const data2 = await fetcher.fetchCategories()
-    console.log(data2)
-    console.log("yeehaw");
-
-};
-
 document.addEventListener("DOMContentLoaded", () => {
     const buildPage = async () => {
         let fetcher = new Fetcher()
@@ -26,14 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let addPlayerBtn: HTMLButtonElement = document.querySelector("#addPlayerBtn")
         addPlayerBtn.addEventListener("click", (e) => handleAddPlayer(e, players))
         document.querySelector("#playerInput").addEventListener("input", clearWarnings)
-        document.querySelector("#playBtn").addEventListener("click", (e) => handleNoPlayers(e, players))
+        document.querySelector("#playBtn").addEventListener("click", (e) => handlePlay(e, players))
     }
     buildPage()
 })
-
-
-
-main();
 
 const handleAddPlayer = (e: MouseEvent, players: string[]) => {
     e.preventDefault()
@@ -48,7 +34,6 @@ const handleAddPlayer = (e: MouseEvent, players: string[]) => {
         clearWarnings()
         addWarning("4 players maximum")
     } else {
-        console.log(players.length)
         players.push(playerInput.value.trim())
         playerInput.value = ""
         let playersUL = document.querySelector("#playerList")
@@ -68,7 +53,7 @@ const addWarning = (warning: string) => {
     warningLI.innerHTML = warning
     document.querySelector('#warningList').appendChild(warningLI)
 }
-const handleNoPlayers = (e: Event, players: string[]) => {
+const handlePlay = (e: Event, players: string[]) => {
     e.preventDefault()
     if (players.length < 1) {
         clearWarnings()
