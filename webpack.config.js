@@ -1,8 +1,13 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 
+const pages = ["index", "game"]
+
 module.exports = {
-  entry: "./src/index.ts",
+  entry: pages.reduce((config, page) => {
+    config[page] = `./src/${page}.ts`;
+    return config;
+  }, {}),
   mode: "development",
   devServer: {
     watchFiles: ["src/**/*"],
@@ -24,14 +29,17 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-  plugins: [
-    new CopyPlugin({
-      patterns: [{ from: "src/index.html", to: "index.html" }],
-    }),
-  ],
+  plugins: [].concat(
+    pages.map(
+      (page) => 
+      new CopyPlugin({
+        patterns: [{ from: `src/${page}.html`, to: `${page}.html` }],
+      }),
+    )
+    
+  ),
   output: {
-    filename: "bundle.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
-    clean: true,
   },
 };
