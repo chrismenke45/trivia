@@ -74,8 +74,7 @@ const handleNoPlayers = (e: Event, players: string[]) => {
         clearWarnings()
         addWarning("You must add a player!")
     } else {
-        window.location.replace(`game.html`);
-
+        const category: HTMLSelectElement = document.querySelector("#category")
+        window.location.replace(`game.html?players=${players.join(',')}&category=${category.value}`);
     }
 }
-console.log("yee")
