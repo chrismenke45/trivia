@@ -1,11 +1,11 @@
 const playersLIs = (playerArray: string[]):HTMLLIElement[] => {
-    return playerArray.map(player => {
+    return playerArray.map((player, index) => {
         let li: HTMLLIElement= document.createElement("li")
         let span: HTMLSpanElement = document.createElement("span")
         let div: HTMLDivElement = document.createElement("div")
         span.innerText = player
         div.appendChild(span)
-        div.insertAdjacentHTML('beforeend',`<i class="fa fa-times cursor-pointer"></i>`)
+        div.insertAdjacentHTML('beforeend',`<i class="fa fa-times cursor-pointer" data-index="${index}"></i>`)
         div.classList.add("w-full")
         div.classList.add("flex")
         div.classList.add("justify-between")

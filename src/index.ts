@@ -41,9 +41,9 @@ const handleAddPlayer = (e: MouseEvent, players: string[]) => {
         let playerLIElements: HTMLLIElement[] = playersLIs(players)
         playerLIElements.forEach(element => {
             playersUL.appendChild(element)
+            element.lastChild.lastChild.addEventListener("click", (e) => removePlayer(e, players))
         })
     }
-    console.log(players)
 }
 const clearWarnings = () => {
     document.querySelector('#warningList').innerHTML = ""
@@ -61,5 +61,17 @@ const handlePlay = (e: Event, players: string[]) => {
     } else {
         const category: HTMLSelectElement = document.querySelector("#category")
         window.location.replace(`game.html?players=${players.join(',')}&category=${category.value}`);
+    }
+}
+const removePlayer = (e: Event, players: string[]) => {
+    if (e.currentTarget instanceof HTMLElement) {
+        players.splice((Number(e.currentTarget.dataset.index)), 1)
+        let playersUL = document.querySelector("#playerList")
+        playersUL.innerHTML = ""
+        let playerLIElements: HTMLLIElement[] = playersLIs(players)
+        playerLIElements.forEach(element => {
+            playersUL.appendChild(element)
+            element.lastChild.lastChild.addEventListener("click", (e) => removePlayer(e, players))
+        })
     }
 }
