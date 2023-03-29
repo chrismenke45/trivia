@@ -1,5 +1,5 @@
 import "./styles/index.css";
-import Fetcher from "./functions/Fetcher";
+import Fetcher from "./classes/Fetcher";
 import categoryOptions from "./components/categoryOptions";
 import { categoryProp } from "./models";
 import playersLIs from "./components/playersLIs";

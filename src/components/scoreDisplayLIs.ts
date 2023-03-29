@@ -1,4 +1,4 @@
-import Player from "../functions/Player"
+import Player from "../classes/Player"
 
 const scoreDisplayLIs = (playerArray: Player[], activeIndex: number):HTMLLIElement[] => {
     return playerArray.map((player, index) => {
