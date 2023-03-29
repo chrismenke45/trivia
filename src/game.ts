@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const buildPage = async () => {
         let fetcher = new Fetcher()
         await fetcher.fetchToken()
+        let data = await fetcher.fetchQuestions({"amount": 20})
+        console.log(data)
         let playerLIElements: HTMLLIElement[] = scoreDisplayLIs(players, 0)
         playerLIElements.forEach(element => {
             document.querySelector("#playerSummaries").appendChild(element)

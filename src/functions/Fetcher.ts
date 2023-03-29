@@ -43,7 +43,8 @@ class Fetcher {
             console.error(err)
         }
     }
-    async fetchQuestions(params: QueryParamObjProp): Promise<any> {
+    async fetchQuestions(params: QueryParamObjProp = {}): Promise<any> {
+        if (this.token) { Object.assign(params, {"token": this.token}) }
         return await this.#basicFetch(`/api.php${this.#generateQueryParams(params)}`)
     }
     async fetchCategories(): Promise<any> {
