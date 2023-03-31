@@ -45,6 +45,7 @@ class Fetcher {
     }
     async fetchQuestions(params: QueryParamObjProp = {}): Promise<any> {
         if (this.token) { Object.assign(params, {"token": this.token}) }
+        Object.assign(params, {"encode": "url3986"})
         return await this.#basicFetch(`/api.php${this.#generateQueryParams(params)}`)
     }
     async fetchCategories(): Promise<any> {

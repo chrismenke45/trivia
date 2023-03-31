@@ -1,4 +1,4 @@
-import incrementActivePlayer from "../functions/incrementActivePlayer";
+import incrementActivePlayer from "./incrementActivePlayer";
 import Player from "../classes/Player";
 import { describe, expect, test } from '@jest/globals';
 
