@@ -12,10 +12,13 @@ let players: Player[] = params["players"].split(",").map(name => new Player(name
 
 document.addEventListener("DOMContentLoaded", () => {
     const buildPage = async () => {
-        const questions: APIQuestion[] = await getQuestions(params, 0)
+        const questions: APIQuestion[] = await getQuestions(params, players.length)
         console.log(questions)
-        updateScoreDisplay(players, 0)
-        document.querySelector("main").appendChild(askQuestionElement(questions[0]))
+        questions.forEach((question, index) => {
+            updateScoreDisplay(players, index)
+            document.querySelector("main").appendChild(askQuestionElement(question))
+        }
+        )
     }
     buildPage()
 })
@@ -32,7 +35,7 @@ const updateScoreDisplay = (players: Player[], currentPlayerIndex: number) => {
 const getQuestions = async (params: QueryParamObjProp, playerCount: number): Promise<APIQuestion[]> => {
     let fetcher = new Fetcher()
     await fetcher.fetchToken()
-    let questionParams: QueryParamObjProp = { "amount": 20 }
+    let questionParams: QueryParamObjProp = { "amount": playerCount * 5 }
     Number(params["category"]) && Object.assign(questionParams, { "category": params["category"] })
     let data = await fetcher.fetchQuestions(questionParams)
     return data.results
