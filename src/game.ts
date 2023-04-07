@@ -17,8 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         questions.forEach((question, index) => {
             updateScoreDisplay(players, index)
             document.querySelector("main").appendChild(askQuestionElement(question))
-        }
-        )
+        })
     }
     buildPage()
 })
