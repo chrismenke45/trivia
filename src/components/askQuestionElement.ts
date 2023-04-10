@@ -15,7 +15,7 @@ const askQuestionElement = (question: APIQuestion):HTMLElement => {
     answers.forEach(answer => {
         let li: HTMLLIElement = document.createElement("li")
         let button: HTMLButtonElement = document.createElement("button")
-        button.classList.add("w-full")
+        button.classList.add("w-full", "answer")
         button.innerText = decodeURIComponent(answer)
         li.append(button)
         ul.append(li)
