@@ -18,14 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const buildPage = async () => {
         await getToken()
         globalQuestions = await getQuestions(params, globalPlayers.length)
-        console.log(globalQuestions)
         updateUI(globalPlayers, currentQuestionIndex, globalQuestions)
     }
     buildPage()
 })
 
 const updateScoreDisplay = (players: Player[], currentPlayerIndex?: number) => {
-    console.log("update", currentPlayerIndex)
     let playerSummariesList: HTMLUListElement = document.querySelector("#playerSummaries")
     let playerLIElements: HTMLLIElement[] = scoreDisplayLIs(players, currentPlayerIndex)
     playerSummariesList.innerHTML = ""
@@ -64,7 +62,6 @@ const answerHandler = (e: Event, questions: APIQuestion[]) => {
     } else {
         globalPlayers[currentQuestionIndex % globalPlayers.length].addCount(0)
     }
-    console.log(button.innerText, currentQuestionIndex)
     currentQuestionIndex++
     if (currentQuestionIndex < questions.length) {
         updateUI(globalPlayers, currentQuestionIndex, questions)
