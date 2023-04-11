@@ -4,18 +4,22 @@ import Player from "./classes/Player";
 import scoreDisplayLIs from "./components/scoreDisplayLIs";
 import { APIQuestion, QueryParamObjProp } from "./models"
 import askQuestionElement from "./components/askQuestionElement";
+import moreQuestionsElement from "./components/moreQuestionsElement";
 
 const params = Object.fromEntries(
     new URLSearchParams(window.location.search)
 )
-let players: Player[] = params["players"].split(",").map(name => new Player(name))
+let globalPlayers: Player[] = params["players"].split(",").map(name => new Player(name))
 let currentQuestionIndex: number = 0
+let globalFetcher = new Fetcher()
+let globalQuestions: APIQuestion[] = []
 
 document.addEventListener("DOMContentLoaded", () => {
     const buildPage = async () => {
-        const questions: APIQuestion[] = await getQuestions(params, players.length)
-        console.log(questions)
-        updateUI(players, currentQuestionIndex, questions)
+        await getToken()
+        globalQuestions = await getQuestions(params, globalPlayers.length)
+        console.log(globalQuestions)
+        updateUI(globalPlayers, currentQuestionIndex, globalQuestions)
     }
     buildPage()
 })
@@ -30,12 +34,13 @@ const updateScoreDisplay = (players: Player[], currentPlayerIndex?: number) => {
     })
 }
 
+const getToken = async () => {
+    await globalFetcher.fetchToken()
+}
 const getQuestions = async (params: QueryParamObjProp, playerCount: number): Promise<APIQuestion[]> => {
-    let fetcher = new Fetcher()
-    await fetcher.fetchToken()
     let questionParams: QueryParamObjProp = { "amount": playerCount * 5 }
     Number(params["category"]) && Object.assign(questionParams, { "category": params["category"] })
-    let data = await fetcher.fetchQuestions(questionParams)
+    let data = await globalFetcher.fetchQuestions(questionParams)
     return data.results
 }
 
@@ -54,19 +59,32 @@ const updateUI = (players: Player[], currentIndex: number, questions: APIQuestio
 const answerHandler = (e: Event, questions: APIQuestion[]) => {
     const button = e.target as HTMLElement;
     if (button.innerText === decodeURIComponent(questions[currentQuestionIndex].correct_answer)) {
-        console.log("correct")
-        players[currentQuestionIndex % players.length].addCount(1)
+        globalPlayers[currentQuestionIndex % globalPlayers.length].addCount(1)
     } else {
-        console.log("incorrect")
-        players[currentQuestionIndex % players.length].addCount(0)
+        globalPlayers[currentQuestionIndex % globalPlayers.length].addCount(0)
     }
     console.log(button.innerText, currentQuestionIndex)
     currentQuestionIndex++
     if (currentQuestionIndex < questions.length) {
-        updateUI(players, currentQuestionIndex, questions)
+        updateUI(globalPlayers, currentQuestionIndex, questions)
     } else {
-        updateScoreDisplay(players)
-        document.querySelector("main").innerHTML = "That's all the questions"
+        updateScoreDisplay(globalPlayers)
+        document.querySelector("main").innerHTML = ""
+        document.querySelector("main").append(moreQuestionsElement())
+        document.querySelector("button.moreQuestions").addEventListener("click", moreQuestionsHandler)
     }
     
+}
+
+const moreQuestionsHandler = async (e: Event) => {
+    globalQuestions = await getQuestions(params, globalPlayers.length)
+    document.querySelector("button.moreQuestions").removeEventListener("click", moreQuestionsHandler)
+    if (globalQuestions.length === 0) {
+        let main: HTMLElement = document.querySelector("main")
+        main.innerHTML = ""
+        main.innerText = "Sorry, no more questions could be found"
+    } else {
+        currentQuestionIndex = 0
+        updateUI(globalPlayers, currentQuestionIndex, globalQuestions)
+    }  
 }

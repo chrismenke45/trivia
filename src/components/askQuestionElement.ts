@@ -3,10 +3,10 @@ import { APIQuestion } from "../models"
 
 const askQuestionElement = (question: APIQuestion):HTMLElement => {
     let article: HTMLElement = document.createElement("article")
-    article.classList.add("m-4")
+    article.classList.add("m-4", "col-center")
     let p: HTMLParagraphElement = document.createElement("p")
+    p.classList.add("text-center")
     let ul: HTMLUListElement = document.createElement("ul")
-    article.classList.add("col-center")
     ul.classList.add("grid", "grid-cols-1", "gap-0.5", "sm:grid-cols-2")
     question.question
     p.innerText = decodeURIComponent(question.question)
