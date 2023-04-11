@@ -60,7 +60,10 @@ const handlePlay = (e: Event, players: string[]) => {
         addWarning("You must add a player!")
     } else {
         const category: HTMLSelectElement = document.querySelector("#category")
-        window.location.replace(`game.html?players=${players.join(',')}&category=${category.value}`);
+        const difficulty: HTMLSelectElement = document.querySelector("#difficulty")
+        let path: string = `game.html?players=${players.join(',')}&category=${category.value}`
+        if (difficulty.value !== "0") { path += `&difficulty=${difficulty.value}`}
+        window.location.replace(path);
     }
 }
 const removePlayer = (e: Event, players: string[]) => {

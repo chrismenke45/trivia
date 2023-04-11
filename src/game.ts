@@ -40,6 +40,7 @@ const getToken = async () => {
 const getQuestions = async (params: QueryParamObjProp, playerCount: number): Promise<APIQuestion[]> => {
     let questionParams: QueryParamObjProp = { "amount": playerCount * 5 }
     Number(params["category"]) && Object.assign(questionParams, { "category": params["category"] })
+    params["difficulty"] !== "all" && Object.assign(questionParams, { "difficulty": params["difficulty"] })
     let data = await globalFetcher.fetchQuestions(questionParams)
     return data.results
 }
