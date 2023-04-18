@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Trivia</title>
+</head>
+
+<body>
+  <header class="bg-yellow-300 py-2 px-5 text-xl">
+    <h1 class="text-indigo-900 text-2xl font-mono">Trivia</h1>
+  </header>
+  <main class="col-center w-full text-xl">
+      <h3>Players:</h3>
+      <ol id="playerList" class="flex flex-col items-start list-decimal w-24">
+      </ol>
+      <form class="col-center w-96 max-w-full">
+        <label for="playerInput" hidden="true">Player Name:</label>
+        <input type="text" id="playerInput" placeholder="Player" class="theme-border w-4/6" maxlength="10" />
+        <button id="addPlayerBtn">Add Player</button>
+        <br />
+        <label for="category">Category:</label>
+        <select name="category" id="category" class="theme-border w-4/6">
+          <option value="all">All</option>
+        </select>
+        <label for="difficulty">Difficulty:</label>
+        <select name="difficulty" id="difficulty" class="theme-border w-4/6">
+          <option value="all">All</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <button id="playBtn">Play</button>
+        <ul id="warningList" class="text-red-500 list-disc">
+        </ul>
+      </form>
+  </main>
+  <script src="./index.js"></script>
+</body>
+
+</html>
