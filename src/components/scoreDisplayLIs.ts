@@ -6,7 +6,7 @@ const scoreDisplayLIs = (playerArray: Player[], activeIndex?: number): HTMLLIEle
         let nameSpan: HTMLSpanElement = document.createElement("span")
         nameSpan.innerText = player.name
         let percentSpan: HTMLSpanElement = document.createElement("span")
-        percentSpan.innerText = `${player.correctPercentage}%`
+        percentSpan.innerText = ` ${player.correctPercentage}%`
         li.classList.add("sm:flex", "justify-between", "mx-1", "p-1", "basis-24", "rounded", "border", "border-black")
         li.classList.add(activeIndex !== undefined && activeIndex === index ? "bg-green-300" : "bg-red-100")
         li.classList.add(activeIndex !== undefined && activeIndex === index ? "flex" : "hidden")
