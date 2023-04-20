@@ -33,7 +33,10 @@ module.exports = {
     pages.map(
       (page) => 
       new CopyPlugin({
-        patterns: [{ from: `src/${page}.html`, to: `${page}.html` }],
+        patterns: [
+          { from: `src/${page}.html`, to: `${page}.html` },
+          { from: 'src/assets/favicon.ico' }
+        ],
       }),
     )
     
